@@ -22,3 +22,10 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+Start ruby Server:
+  rails s
+
+Start Vue:
+
+  ./bin/webpack-dev-server install
