@@ -17,7 +17,8 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
     create_table "groups", primary_key: "groupID", id: :string, limit: 12, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
       t.string "groupName"
       t.text "address", limit: 16777215
-      t.index ["groupID"], name: "groupShort_UNIQUE", unique: true
+      t.index ["groupID"], name: "groupShort_UNIQUE", unique: true 
+      t.timestamps
     end
 
     create_table "hires", primary_key: "hireID", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -33,6 +34,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.index ["hireID"], name: "hireID_UNIQUE", unique: true
       t.index ["status"], name: "status"
       t.index ["userID"], name: "userID"
+      t.timestamps
     end
 
     create_table "loans", primary_key: "loanID", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -45,6 +47,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.index ["hireID"], name: "hireID"
       t.index ["loanID"], name: "transactionID_UNIQUE", unique: true
       t.index ["stockID"], name: "stockID"
+      t.timestamps
     end
 
     create_table "multi_stock", primary_key: "multiID", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -52,6 +55,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.integer "new_qty", default: 1, null: false
       t.timestamp "date_added", default: -> { "CURRENT_TIMESTAMP" }, null: false
       t.index ["stockID"], name: "stockID"
+      t.timestamps
     end
 
     create_table "ordered_sizes", primary_key: ["hireID", "sizeID"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -61,6 +65,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.integer "booked", default: 0, null: false
       t.index ["hireID"], name: "hireID"
       t.index ["sizeID"], name: "sizeID_idx"
+      t.timestamps
     end
 
     create_table "packs", primary_key: ["pack_sizeID", "cont_sizeID"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -70,6 +75,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.string "cont_styleID", limit: 5, null: false
       t.integer "pack_qty", limit: 1, default: 1, null: false
       t.index ["cont_sizeID"], name: "fk_pack_cont_sizeID"
+      t.timestamps
     end
 
     create_table "sizes", primary_key: ["sizeID", "styleID"], force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -78,10 +84,12 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.string "size", limit: 45, null: false
       t.index ["sizeID"], name: "sizeID_UNIQUE", unique: true
       t.index ["styleID"], name: "styleID_idx"
+      t.timestamps
     end
 
     create_table "status", primary_key: "status", id: :string, limit: 12, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
       t.integer "sort_order", null: false
+      t.timestamps
     end
 
     create_table "stock", primary_key: "stockID", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -94,6 +102,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.timestamp "dateCreated", default: -> { "CURRENT_TIMESTAMP" }, null: false
       t.index ["barcode"], name: "barcode", unique: true
       t.index ["sizeID"], name: "sizeID_idx"
+      t.timestamps
     end
 
     create_table "styles", primary_key: "styleID", id: :string, limit: 5, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -105,6 +114,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.boolean "has_stock", default: true, null: false
       t.string "category", limit: 45, null: false
       t.index ["styleID"], name: "styleID_UNIQUE", unique: true
+      t.timestamps
     end
 
     create_table "users", primary_key: "userID", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -116,6 +126,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
       t.string "password", limit: 64, null: false
       t.string "templogin", limit: 30
       t.index ["groupID"], name: "groupID"
+      t.timestamps
     end
 
     add_foreign_key "hires", "groups", column: "groupID", primary_key: "groupID", name: "hires_ibfk_1", on_update: :cascade, on_delete: :cascade
