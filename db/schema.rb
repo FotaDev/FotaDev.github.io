@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220144254) do
+ActiveRecord::Schema.define(version: 20180221152736) do
 
   create_table "groups", primary_key: "groupID", id: :string, limit: 12, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "groupName"
     t.text "address", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["groupID"], name: "groupShort_UNIQUE", unique: true
   end
 
@@ -125,11 +126,11 @@ ActiveRecord::Schema.define(version: 20180220144254) do
     t.index ["styleID"], name: "styleID_UNIQUE", unique: true
   end
 
-  create_table "users", primary_key: "userID", id: :integer, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", id: :integer, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "groupID", limit: 10, null: false
     t.string "role", limit: 10, null: false
     t.string "username", limit: 32, null: false
-    t.string "password", limit: 64, null: false
+    t.string "password", limit: 64, default: "changeme", null: false
     t.string "templogin", limit: 30
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -160,7 +161,7 @@ ActiveRecord::Schema.define(version: 20180220144254) do
 
   add_foreign_key "hires", "groups", column: "groupID", primary_key: "groupID", name: "hires_ibfk_1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "hires", "status", column: "status", primary_key: "status", name: "hires_ibfk_2"
-  add_foreign_key "hires", "users", column: "userID", primary_key: "userID", name: "fk_hires_userID"
+  add_foreign_key "hires", "users", column: "userID", name: "fk_hires_userID"
   add_foreign_key "loans", "hires", column: "hireID", primary_key: "hireID", name: "loans_ibfk_1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "loans", "stock", column: "stockID", primary_key: "stockID", name: "stockID"
   add_foreign_key "multi_stock", "stock", column: "stockID", primary_key: "stockID", name: "multi_stock_ibfk_1"
