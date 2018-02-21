@@ -10,16 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221155547) do
+ActiveRecord::Schema.define(version: 20180221163206) do
 
-  create_table "groups", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "groupID", limit: 12, null: false
+  create_table "groups", id: :string, limit: 12, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "groupName"
     t.text "address", limit: 16777215
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.index ["groupID"], name: "groupShort_UNIQUE", unique: true
+    t.index ["id"], name: "groupShort_UNIQUE", unique: true
   end
 
   create_table "hires", primary_key: "hireID", id: :integer, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -131,7 +130,7 @@ ActiveRecord::Schema.define(version: 20180221155547) do
     t.string "groupID", limit: 10, null: false
     t.string "role", limit: 10, null: false
     t.string "username", limit: 32, null: false
-    t.string "password", limit: 64, default: "changeme", null: false
+    t.string "password", limit: 64, null: false
     t.string "templogin", limit: 30
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -160,7 +159,7 @@ ActiveRecord::Schema.define(version: 20180221155547) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
-  add_foreign_key "hires", "groups", column: "groupID", primary_key: "groupID", name: "hires_ibfk_1", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "hires", "groups", column: "groupID", name: "hires_ibfk_1", on_update: :cascade, on_delete: :cascade
   add_foreign_key "hires", "status", column: "status", primary_key: "status", name: "hires_ibfk_2"
   add_foreign_key "hires", "users", column: "userID", name: "fk_hires_userID"
   add_foreign_key "loans", "hires", column: "hireID", primary_key: "hireID", name: "loans_ibfk_1", on_update: :cascade, on_delete: :cascade
@@ -172,5 +171,5 @@ ActiveRecord::Schema.define(version: 20180221155547) do
   add_foreign_key "packs", "sizes", column: "pack_sizeID", primary_key: "sizeID", name: "fk_pack_sizeID"
   add_foreign_key "sizes", "styles", column: "styleID", primary_key: "styleID", name: "styleID"
   add_foreign_key "stock", "sizes", column: "sizeID", primary_key: "sizeID", name: "stock_sizeID"
-  add_foreign_key "users", "groups", column: "groupID", primary_key: "groupID", name: "fk_user_groupID"
+  add_foreign_key "users", "groups", column: "groupID", name: "fk_user_groupID"
 end
