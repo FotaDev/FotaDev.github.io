@@ -17,7 +17,7 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
     create_table "groups", primary_key: "groupID", id: :string, limit: 12, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
       t.string "groupName"
       t.text "address", limit: 16777215
-      t.index ["groupID"], name: "groupShort_UNIQUE", unique: true 
+      t.index ["groupID"], name: "groupShort_UNIQUE", unique: true
       t.timestamps
     end
 
@@ -119,14 +119,14 @@ class CreateDatabase < ActiveRecord::Migration[5.0]
 
     create_table "users", primary_key: "userID", id: :integer, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
       t.string "groupID", limit: 10, null: false
+      #t.string "email", limit: 50, null: false, default: ""
       t.string "role", limit: 10, null: false
       t.string "username", limit: 32, null: false
-      t.string "name", limit: 32, null: false
-      t.string "email", limit: 100
       t.string "password", limit: 64, null: false
       t.string "templogin", limit: 30
       t.index ["groupID"], name: "groupID"
-      t.timestamps
+      #t.string "reset_password_token"
+      t.timestamps null: false
     end
 
     add_foreign_key "hires", "groups", column: "groupID", primary_key: "groupID", name: "hires_ibfk_1", on_update: :cascade, on_delete: :cascade

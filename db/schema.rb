@@ -10,11 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 20180220144254) do
 
   create_table "groups", primary_key: "groupID", id: :string, limit: 12, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "groupName"
     t.text "address", limit: 16777215
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["groupID"], name: "groupShort_UNIQUE", unique: true
   end
 
@@ -27,6 +29,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.integer "userID", null: false
     t.string "reference", null: false
     t.string "invoiceNo", limit: 11
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["groupID"], name: "fk_hires_groups1_idx"
     t.index ["hireID"], name: "hireID_UNIQUE", unique: true
     t.index ["status"], name: "status"
@@ -39,6 +43,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "nameTag", limit: 45
     t.timestamp "dateOut", default: -> { "CURRENT_TIMESTAMP" }, null: false
     t.timestamp "dateBack"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["hireID"], name: "fk_transactions_hires1_idx"
     t.index ["hireID"], name: "hireID"
     t.index ["loanID"], name: "transactionID_UNIQUE", unique: true
@@ -49,6 +55,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.integer "stockID", null: false
     t.integer "new_qty", default: 1, null: false
     t.timestamp "date_added", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["stockID"], name: "stockID"
   end
 
@@ -57,6 +65,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "sizeID", limit: 5, null: false
     t.integer "request", default: 0, null: false
     t.integer "booked", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["hireID"], name: "hireID"
     t.index ["sizeID"], name: "sizeID_idx"
   end
@@ -67,6 +77,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "pack_styleID", limit: 5, null: false
     t.string "cont_styleID", limit: 5, null: false
     t.integer "pack_qty", limit: 1, default: 1, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["cont_sizeID"], name: "fk_pack_cont_sizeID"
   end
 
@@ -74,12 +86,16 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "sizeID", limit: 5, null: false
     t.string "styleID", limit: 5, null: false
     t.string "size", limit: 45, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["sizeID"], name: "sizeID_UNIQUE", unique: true
     t.index ["styleID"], name: "styleID_idx"
   end
 
   create_table "status", primary_key: "status", id: :string, limit: 12, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "sort_order", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "stock", primary_key: "stockID", id: :integer, default: nil, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -90,6 +106,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "cond", limit: 9
     t.string "comments"
     t.timestamp "dateCreated", default: -> { "CURRENT_TIMESTAMP" }, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["barcode"], name: "barcode", unique: true
     t.index ["sizeID"], name: "sizeID_idx"
   end
@@ -102,6 +120,8 @@ ActiveRecord::Schema.define(version: 1) do
     t.boolean "browseable", default: true, null: false
     t.boolean "has_stock", default: true, null: false
     t.string "category", limit: 45, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["styleID"], name: "styleID_UNIQUE", unique: true
   end
 
@@ -109,11 +129,33 @@ ActiveRecord::Schema.define(version: 1) do
     t.string "groupID", limit: 10, null: false
     t.string "role", limit: 10, null: false
     t.string "username", limit: 32, null: false
-    t.string "name", limit: 32, null: false
-    t.string "email", limit: 100
     t.string "password", limit: 64, null: false
     t.string "templogin", limit: 30
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_up"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.integer "failed_attempts", default: 0, null: false
+    t.string "unlock_token"
+    t.datetime "locked_at"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["groupID"], name: "groupID"
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
   add_foreign_key "hires", "groups", column: "groupID", primary_key: "groupID", name: "hires_ibfk_1", on_update: :cascade, on_delete: :cascade
