@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180221152736) do
+ActiveRecord::Schema.define(version: 20180221155547) do
 
-  create_table "groups", primary_key: "groupID", id: :string, limit: 12, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "groups", id: false, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "groupID", limit: 12, null: false
     t.string "groupName"
     t.text "address", limit: 16777215
     t.datetime "created_at", null: false
