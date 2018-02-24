@@ -13,6 +13,6 @@
 #
 
 class Hire < ApplicationRecord
-  has_one :user, through: :group
-  has_one :group
+  belongs_to :user
+  belongs_to :group
 end

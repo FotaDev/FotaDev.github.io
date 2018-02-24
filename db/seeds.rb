@@ -20,8 +20,29 @@ Group.create(
 )
 
 User.create(
-  email:"car@los.com",
+  email: "car@los.com",
   password: "111111",
   group_id: 1
 )
 
+Hire.create(
+  user_id: 1,
+  group_id: 1,
+  collect_date: Date.today,
+  return_date: Date.today + 9.months,
+  status: 1,
+  band: 1,
+  reference: "Reference text of this Hire",
+  invoice_number: 1
+)
+
+Hire.create(
+  user_id: 1,
+  group_id: 1,
+  collect_date: Date.tomorrow,
+  return_date: Date.today + 9.months,
+  status: 4,
+  band: 3,
+  reference: "Another text of this Hire",
+  invoice_number: 15
+)
