@@ -1,0 +1,56 @@
+<h1>Past Hires</h1>
+
+<% @Past_Hires.each do |hire| %>
+  <ul>
+    <li><strong>Username: </strong><%= hire.user.username %></li>
+    <li><strong>Group: </strong><%= hire.group.name %></li>
+    <li><strong>Status: </strong><%= hire.status %></li>
+    <li><strong>Band: </strong><%= hire.band %></li>
+    <li><strong>Invoice Number: </strong><%= hire.invoice_number %></li>
+    <br>
+    <li><strong>Collect Date: </strong><%= hire.collect_date.strftime("%d-%b-%Y") %></li>
+    <li><strong>Return Date: </strong><%= hire.return_date.strftime("%d-%b-%Y") %></li>
+    <br> 
+    <li><strong>Reference: </strong><%= hire.reference %></li>
+    <li><%= link_to "visit", hire_path(hire)%></li>
+  </ul>
+<% end %>
+
+
+
+<h1>Current Hires</h1>
+
+<% @Current_Hires.each do |hire| %>
+  <ul>
+    <li><strong>Username: </strong><%= hire.user.username %></li>
+    <li><strong>Group: </strong><%= hire.group.name %></li>
+    <li><strong>Status: </strong><%= hire.status %></li>
+    <li><strong>Band: </strong><%= hire.band %></li>
+    <li><strong>Invoice Number: </strong><%= hire.invoice_number %></li>
+    <br>
+    <li><strong>Collect Date: </strong><%= hire.collect_date.strftime("%d-%b-%Y") %></li>
+    <li><strong>Return Date: </strong><%= hire.return_date.strftime("%d-%b-%Y") %></li>
+    <br> 
+    <li><strong>Reference: </strong><%= hire.reference %></li>
+    <li><%= link_to "visit", hire_path(hire)%></li>
+  </ul>
+<% end %>
+
+<h1>Future Hires</h1>
+
+<% @Future_Hires.each do |hire| %>
+  <ul>
+    <li><strong>Username: </strong><%= hire.user.username %></li>
+    <li><strong>Group: </strong><%= hire.group.name %></li>
+    <li><strong>Status: </strong><%= hire.status %></li>
+    <li><strong>Band: </strong><%= hire.band %></li>
+    <li><strong>Invoice Number: </strong><%= hire.invoice_number %></li>
+    <br>
+    <li><strong>Collect Date: </strong><%= hire.collect_date.strftime("%d-%b-%Y") %></li>
+    <li><strong>Return Date: </strong><%= hire.return_date.strftime("%d-%b-%Y") %></li>
+    <br>
+    <li><strong>Reference: </strong><%= hire.reference %></li>
+    <li><%= link_to "visit", hire_path(hire)%></li>
+  </ul>
+<% end %>
+
