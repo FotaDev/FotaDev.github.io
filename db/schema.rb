@@ -10,11 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180224145526) do
+ActiveRecord::Schema.define(version: 20180224165956) do
 
   create_table "groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "group_name"
+    t.string "name"
     t.text "address"
+  end
+
+  create_table "hires", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "user_id"
+    t.datetime "collect_date"
+    t.datetime "return_date"
+    t.integer "status"
+    t.integer "band"
+    t.text "reference"
+    t.integer "invoice_number"
+    t.integer "group_id"
+    t.index ["user_id"], name: "index_hires_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -49,4 +61,5 @@ ActiveRecord::Schema.define(version: 20180224145526) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "hires", "users"
 end
