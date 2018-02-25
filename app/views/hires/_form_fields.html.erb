@@ -1,0 +1,35 @@
+<%= form_for(@Hire) do |f| %>
+  <p>
+  <%= f.label :collect_date %>
+  <%= f.date_field :collect_date %>
+  </p>
+
+  <p>
+  <%= f.label :return_date %>
+  <%= f.date_field  :return_date %>
+  </p>
+
+  <p>
+  <%= f.label :status %> 
+  <%= f.text_field :status %>
+  </p>
+
+  <p>
+  <%= f.label :band %>
+  <%= f.text_field :band %>
+  </p>
+
+  <p>
+  <%= f.label :reference %>
+  <%= f.text_field :reference %>
+  </p>
+
+  <p>
+  <%= f.label :invoice_number %>
+  <%= f.text_field :invoice_number %>
+  </p>
+
+  <p>
+  <%= f.submit "Save Changes" %>
+  </p>
+<% end %>
