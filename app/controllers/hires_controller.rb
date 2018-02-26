@@ -5,6 +5,16 @@ class HiresController < ApplicationController
   respond_to :html, :json
 
   def index
+
+    if params[:approved] == "false"
+        @users = User.where(approved: false)
+    else
+        @users = User.all
+    end
+
+
+
+
     # Copy of current for the moment
     @Hires = Hire.all
     @Past_Hires = past_hires(@Hires)
@@ -13,7 +23,7 @@ class HiresController < ApplicationController
     @Current_Hires = current_hires(@Hires)
 
     @Future_Hires = future_hires(@Hires)
-  respond_with(@Hires)
+    respond_with(@Hires)
   end
 
   def new
