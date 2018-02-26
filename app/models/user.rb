@@ -28,13 +28,13 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string(255)
 #  locked_at              :datetime
+#  approved               :boolean          default(FALSE), not null
 #
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+
   belongs_to :group
   has_many :hires, through: :group
 
@@ -42,4 +42,20 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable, :lockable
+
+
+  def active_for_authentication? 
+    super && approved?
+  end
+  
+  def inactive_message 
+    if !approved? 
+      :not_approved 
+    else 
+      super # Use whatever other message 
+    end 
+  end
+
+
+
 end

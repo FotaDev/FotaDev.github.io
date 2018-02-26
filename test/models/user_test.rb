@@ -28,6 +28,7 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string(255)
 #  locked_at              :datetime
+#  approved               :boolean          default(FALSE), not null
 #
 
 require 'test_helper'
