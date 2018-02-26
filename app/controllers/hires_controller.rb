@@ -1,8 +1,7 @@
 class HiresController < ApplicationController
   before_action :set_account, only: [:show, :update, :edit]
-  before_action :redirect_non_registered
+  #before_action :redirect_non_registered
 
-  respond_to :html, :json
 
   def index
 
@@ -23,7 +22,7 @@ class HiresController < ApplicationController
     @Current_Hires = current_hires(@Hires)
 
     @Future_Hires = future_hires(@Hires)
-    respond_with(@Hires)
+    #respond_with(@Hires)
   end
 
   def new
@@ -86,8 +85,8 @@ class HiresController < ApplicationController
   end
 
 
-  def redirect_non_registered
-    authenticate_user!
-    redirect_to root_path if !current_user
-  end
+#  def redirect_non_registered
+#    authenticate_user!
+#    redirect_to root_path if !current_user
+#  end
 end

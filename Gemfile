@@ -12,6 +12,9 @@ gem 'rails', '~> 5.1.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 gem 'devise'
+gem 'devise_token_auth'
+gem 'omniauth'
+gem 'rack-cors', :require => 'rack/cors'
 # !FOTA EXCLUSIVE
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
