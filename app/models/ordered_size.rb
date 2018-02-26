@@ -1,0 +1,3 @@
+class OrderedSize < ApplicationRecord
+
+end

@@ -2,17 +2,18 @@ class HiresController < ApplicationController
   before_action :set_account, only: [:show, :update, :edit]
   before_action :redirect_non_registered
 
+  respond_to :html, :json
 
   def index
     # Copy of current for the moment
     @Hires = Hire.all
-
     @Past_Hires = past_hires(@Hires)
     @Past_Hires ||= []
 
     @Current_Hires = current_hires(@Hires)
 
     @Future_Hires = future_hires(@Hires)
+  respond_with(@Hires)
   end
 
   def new
