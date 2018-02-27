@@ -1,7 +1,10 @@
 Rails.application.configure do
+  #  FOTA THINGS
   # Joe's tutorial
   config.x.webpacker[:dev_server_host] = "http://127.0.0.1:8080"
-
+  #config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.delivery_method = :letter_opener
+  # FOTA THINGS
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = true
 
@@ -51,10 +54,14 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # devise Thingy
+   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
+
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
